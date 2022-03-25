@@ -92,7 +92,7 @@ class Item(Generic[T]):
             self.sell = round(self.price / 2.7)
 
         if not self.plural:
-            self.plural = self.name + 's'
+            self.plural = f'{self.name}s'
 
     def __hash__(self) -> int:
         return hash(self.key)

@@ -204,10 +204,7 @@ class Profit(Cog):
 
     @staticmethod
     def _capitalize_first(s: str, /) -> str:
-        if not len(s):
-            return s
-
-        return s[0].upper() + s[1:]
+        return s[0].upper() + s[1:] if len(s) else s
 
     # noinspection PyTypeChecker
     @command(aliases={"plead"})

@@ -120,8 +120,8 @@ def cutoff(string: str, /, max_length: int = 64, *, exact: bool = False) -> str:
     if len(string) <= max_length:
         return string
 
-    offset = 0 if not exact else 3
-    return string[:max_length - offset] + '...'
+    offset = 3 if exact else 0
+    return f'{string[:max_length - offset]}...'
 
 
 def pluralize(text: str, /) -> str:
