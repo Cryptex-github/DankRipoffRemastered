@@ -32,7 +32,7 @@ class _PaginatorButton(Button['_PaginatorView']):
 
         current = paginator.current_page + 1
         disabled = page == current or not 1 <= page <= paginator.max_pages
-        label = str(page) if not disabled else None
+        label = None if disabled else str(page)
 
         super().__init__(emoji=emoji, label=label, disabled=disabled, row=row)
 

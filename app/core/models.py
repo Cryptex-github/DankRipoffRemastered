@@ -168,10 +168,12 @@ class Command(commands.Command):
                 should_print = param.default if isinstance(param.default, str) else param.default is not None
 
                 if should_print:
-                    result.append(r := (
-                        f'\u001b[34;1m[{name}={param.default}]'
-                        if not greedy else f'\u001b[34;1m[{name}={param.default}]...'
-                    ))
+                    result.append(
+                        r := f'\u001b[34;1m[{name}={param.default}]...'
+                        if greedy
+                        else f'\u001b[34;1m[{name}={param.default}]'
+                    )
+
 
                     if name == until or got:
                         if not length:

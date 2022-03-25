@@ -14,9 +14,6 @@ from app.util.pagination import FieldBasedFormatter, Paginator
 from app.util.structures import Timer
 from config import Colors, Emojis
 
-if TYPE_CHECKING:
-    pass
-
 
 class Miscellaneous(Cog):
     """Miscellaneous commands."""

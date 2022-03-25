@@ -63,10 +63,10 @@ def get_amount(total: float, minimum: int, maximum: int, arg: str) -> int:
     """
     arg = arg.lower().strip()
 
-    if arg in ("all", "max", "a", "m"):
+    if arg in {"all", "max", "a", "m"}:
         amount = round(total)
 
-    elif arg in ("half", "h"):
+    elif arg in {"half", "h"}:
         amount = round(total / 2)
 
     elif arg.endswith("%"):
@@ -230,7 +230,7 @@ def query_crop(query: str, /) -> Item:
         crop = query_item(query)
 
         if crop.type is not ItemType.crop:
-            crop = query_item(crop.name + ' crop')
+            crop = query_item(f'{crop.name} crop')
 
     if crop.type is not ItemType.crop:
         raise BadArgument(f'{crop.name} is not a crop.')

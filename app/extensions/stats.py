@@ -13,9 +13,6 @@ from app.util.converters import CaseInsensitiveMemberConverter
 from app.util.pagination import FieldBasedFormatter, Formatter, LineBasedFormatter, Paginator
 from config import Colors, Emojis
 
-if TYPE_CHECKING:
-    pass
-
 
 class LeaderboardFormatter(Formatter[tuple[UserRecord, discord.Member]]):
     async def format_page(self, paginator: Paginator, entries: list[tuple[UserRecord, discord.Member]]) -> discord.Embed:

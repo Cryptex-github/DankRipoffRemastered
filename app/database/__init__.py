@@ -262,16 +262,10 @@ class SkillManager:
         self.cached = {record['skill']: SkillInfo.from_record(record) for record in records}
 
     def get_skill(self, skill: Skill | str) -> SkillInfo | None:
-        if not self.has_skill(skill := str(skill)):
-            return None
-
-        return self.cached[skill]
+        return self.cached[skill] if self.has_skill(skill := str(skill)) else None
 
     def points_in(self, skill: Skill | str) -> int:
-        if skill := self.get_skill(skill):
-            return skill.points
-
-        return 0
+        return skill.points if (skill := self.get_skill(skill)) else 0
 
     def has_skill(self, skill: Skill | str) -> bool:
         return getattr(skill, 'key', skill) in self.cached
@@ -393,7 +387,7 @@ class CropInfo(NamedTuple):
     def get_letters(x: int) -> str:
         letters = ascii_letters[26:52]
 
-        return (' ' + letters)[x // 26].strip() + letters[x % 26]
+        return f' {letters}'[x // 26].strip() + letters[x % 26]
 
     @staticmethod
     def into_coordinates(x: int, y: int) -> str:
@@ -676,9 +670,10 @@ class UserRecord:
 
             await self.notifications_manager.add_notification(
                 title='You almost died!',
-                content=f"You almost died{' due to ' + reason if reason else ''}, but you had a lifesaver in your inventory, which is now consumed.",
+                content=f"You almost died{f' due to {reason}' if reason else ''}, but you had a lifesaver in your inventory, which is now consumed.",
                 connection=connection,
             )
+
             return
 
         old = self.wallet
@@ -693,10 +688,7 @@ class UserRecord:
 
         await self.notifications_manager.add_notification(
             title='You died!',
-            content=(
-                f"You died{' due to ' + reason if reason else ''}. "
-                f"You lost {Emojis.coin} **{old:,}**{f' and {item.get_sentence_chunk(quantity)}' if item else ''}."
-            ),
+            content=f"You died{f' due to {reason}' if reason else ''}. You lost {Emojis.coin} **{old:,}**{f' and {item.get_sentence_chunk(quantity)}' if item else ''}.",
             connection=connection,
         )
 

@@ -63,18 +63,18 @@ class Migrator:
 
         with open('./migrations/.migrations', 'r+') as fp:
             migrated = fp.read().split()
-            
+
             # This ensures we are on a newline
             fp.seek(0, io.SEEK_END)
 
             for file in os.listdir('./migrations'):
                 if file in migrated or not file.endswith('.sql'):
                     continue
-                    
+
                 if debug:
                     print(f'Migrating {file}...')
                 try:
-                    await self._connection.execute(open('./migrations/' + file).read())
+                    await self._connection.execute(open(f'./migrations/{file}').read())
                 except Exception as exc:
                     print(f'Error when trying to migrate {file}: {exc}')
                 else:
